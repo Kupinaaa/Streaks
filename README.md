@@ -10,7 +10,7 @@ React Router might be a later addition, for a more tiktokie look with a comunity
 A streak is a record of how many days (in a row) you have been doing something (e.g habbits, workouts, etc)
 or in other words a **streak** of days, hence the name 
 
-#### The basic functionality of the Streaks app:
+#### The basic functionality of the Streaks app (v0.1):
 - Add Streaks (with no assigned user)
 - Edit Streaks, Update the streak count
 - Remove Streaks
