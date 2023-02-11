@@ -70,7 +70,7 @@ app.patch("/", async (req: Request, res: Response) => {
       }
 
       //Date check
-      const currDate = Date.now(), prevDate = Date.parse(streak.lastDate)      
+      const currDate = Date.parse(req.body.lastDate), prevDate = Date.parse(streak.lastDate)      
       let days = (currDate - prevDate) / (1000 * 3600 * 24)
 
       if (days < 1) return res.status(200).json({ streak, days: days, message: "Streak not updated: It hasn't been 24 hours yet", code: 0 })
