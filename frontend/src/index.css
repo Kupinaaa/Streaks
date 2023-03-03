@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-html, body {
+html, body, #root {
     padding: 0px;
     margin: 0px;
     height: 100vh;
@@ -10,4 +10,52 @@ html, body {
 
     background-color: rgb(12, 13, 10);
     color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Streaks {
+    height: 85vh;
+    width: 75vw;
+    
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: rgb(1, 7, 1);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.streak-wrapper {
+    display: block;
+    position: relative;
+
+    margin-top: 15px;
+    padding: 10px;
+    padding-left: 20px;
+
+    min-height: 75px;
+    width: 85%;
+    border-radius: 5px;
+
+    background-color: #182418;
+}
+
+.streak-name, .streak-number {
+    display: block;
+    width: fit-content;
+}
+
+.streak-number {
+    margin-left: auto;
+    position: absolute;
+
+    right: 25px;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    font-size: 25px;
 }

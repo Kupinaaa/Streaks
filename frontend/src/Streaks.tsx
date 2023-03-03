@@ -15,7 +15,7 @@ const Streaks = () => {
   const StreakElements = PrototypeOfStreaks.map((Streak) => {
     return(
       <div key={Streak.streakName}
-           className="streak"
+           className="streak-wrapper"
       >
         <div className="streak-name">{Streak.streakName}</div>
         <div className="streak-number">{Streak.streak}</div>
