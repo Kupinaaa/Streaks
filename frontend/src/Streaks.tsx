@@ -23,7 +23,7 @@ const Streaks = () => {
     )
   })
 
-  return <>{StreakElements}</>
+  return <div className="Streaks">{StreakElements}</div>
 }
 
 export default Streaks
