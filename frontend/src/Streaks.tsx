@@ -1,18 +1,31 @@
+import { useEffect, useState } from "react"
+
 const Streaks = () => {
 
-  const getStreaks = () => {
-    const StreaksJSON = fetch(
-      'localhost:3000',
-      {
-        method: 'GET'
-      }
-    )
-    return JSON.stringify(StreaksJSON)
+
+  interface StreakInterface {
+    streakName: string,
+    streak: number,
+    lastDate: string
   }
 
-  const PrototypeOfStreaks = [{streakName: "StreakTest", streak: 10}, {streakName: "Streak test No2", streak: 2}]
+  const [StreakData, setStreakData] = useState([])
 
-  const StreakElements = PrototypeOfStreaks.map((Streak) => {
+  useEffect( () => { 
+    (async () => {
+        const StreaksJSON = await fetch('/', {
+          method: 'GET',
+        }
+      )
+      console.log(StreaksJSON)
+      setStreakData(await StreaksJSON.json())
+    })()
+  }, [] )
+
+
+  if (!StreakData) throw {error: 'StreakData undefined'}
+
+  const StreakElements = StreakData.map((Streak:StreakInterface) => {
     return(
       <div key={Streak.streakName}
            className="streak-wrapper"
