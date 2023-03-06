@@ -24,9 +24,10 @@ html, body, #root {
     align-items: center;
     flex-direction: column;
 
-    background-color: rgb(1, 7, 1);
+    background-color: rgb(0, 0, 0);
     border-radius: 15px;
     padding: 25px;
+    border: 2px solid #273b27;
 }
 
 .streak-wrapper {
