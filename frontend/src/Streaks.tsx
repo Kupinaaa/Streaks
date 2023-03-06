@@ -13,8 +13,11 @@ const Streaks = () => {
 
   useEffect( () => { 
     (async () => {
-        const StreaksJSON = await fetch('/', {
+        const StreaksJSON = await fetch('http://localhost:3000', {
           method: 'GET',
+          headers: {
+            "Content-Type": "application/json"
+          }
         }
       )
       console.log(StreaksJSON)
