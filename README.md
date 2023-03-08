@@ -1,6 +1,6 @@
 # Streaks
 
-### This is a v0.1 WIP!
+### This is a WIP!
 ##### Edit date: the 7th of March, 2023
 
 The current look of things:
