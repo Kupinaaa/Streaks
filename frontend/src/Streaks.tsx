@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { JSXElementConstructor, ReactElement, ReactFragment, useEffect, useState } from "react"
 
 const Streaks = () => {
 
@@ -6,10 +6,15 @@ const Streaks = () => {
   interface StreakInterface {
     streakName: string,
     streak: number,
-    lastDate: string
+    lastDate: string,
+    done: boolean
   }
 
-  const [StreakData, setStreakData] = useState([])
+  const [StreakData, setStreakData] = useState([
+    { streakName: "StreakName", streak: 5, lastDate: "test", done: true },
+    { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
+    { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
+  ])
 
   useEffect( () => { 
     (async () => {
@@ -27,9 +32,11 @@ const Streaks = () => {
 
 
   if (!StreakData) throw {error: 'StreakData undefined'}
+  
+  let notDoneStreakElements: JSX.Element[] = [], doneStreakElements: JSX.Element[] = []
 
-  const StreakElements = StreakData.map((Streak:StreakInterface) => {
-    return(
+  StreakData.forEach((Streak:StreakInterface) => {
+    const StreakElement = (
       <div key={Streak.streakName}
            className="streak-wrapper"
       >
@@ -37,9 +44,24 @@ const Streaks = () => {
         <div className="streak-number">{Streak.streak}</div>
       </div>
     )
-  })
 
-  return <div className="Streaks">{StreakElements}</div>
+    if (Streak.done == true) doneStreakElements.push(StreakElement)
+    else notDoneStreakElements.push(StreakElement)
+  })
+  
+
+  return ( 
+    <div className="Streaks">
+      <div className="notDoneStreaks">
+        <div className="title">Not Done</div>
+        {notDoneStreakElements}
+      </div>
+      <div className="doneStreaks">
+        <div className="title">Done</div>
+        {doneStreakElements}
+      </div>
+    </div>
+  )
 }
 
 export default Streaks
