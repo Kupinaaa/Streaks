@@ -10,7 +10,7 @@ const Streaks = () => {
     done: boolean
   }
 
-  const [StreakData, setStreakData] = useState([
+  const [StreakData, setStreakData] = useState<StreakInterface[]>([
     { streakName: "StreakName", streak: 5, lastDate: "test", done: true },
     { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
     { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
@@ -33,13 +33,25 @@ const Streaks = () => {
 
   if (!StreakData) throw {error: 'StreakData undefined'}
 
-  const handleClick = (streakName: string) => {
+  const handleClick = (chnageStreakName: string) => {
+    console.log(chnageStreakName)
     setStreakData(() => {
-      const newStreakData = StreakData.map(streak => {
-        if (streak.streakName === streakName) return {...streak, done: !streak.done}
-        else return streak
+      let changed: StreakInterface | undefined
+      let newStreakData: StreakInterface[] = [] 
+      StreakData.forEach((streak, index) => {
+        if (streak.streakName === chnageStreakName){
+          changed = StreakData[index]
+        } else {
+          newStreakData.push(StreakData[index])
+        } 
       })
-      console.log(newStreakData)
+      console.log(changed)
+      if(changed != undefined) {
+        changed.done = !changed.done
+        if (changed.done === true) changed.streak++
+        else changed.streak--
+        newStreakData.push(changed)
+      }
       return newStreakData
     })
   }
@@ -50,7 +62,7 @@ const Streaks = () => {
     const StreakElement = (
       <div key={Streak.streakName}
            className="streak-wrapper"
-           onClick={() => handleClick(Streak.streakName)}
+           onClick={() => {handleClick(Streak.streakName)}}
       >
         <div className="streak-name">{Streak.streakName}</div>
         <div className="streak-number">{Streak.streak}</div>
