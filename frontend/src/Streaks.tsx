@@ -32,6 +32,17 @@ const Streaks = () => {
 
 
   if (!StreakData) throw {error: 'StreakData undefined'}
+
+  const handleClick = (streakName: string) => {
+    setStreakData(() => {
+      const newStreakData = StreakData.map(streak => {
+        if (streak.streakName === streakName) return {...streak, done: !streak.done}
+        else return streak
+      })
+      console.log(newStreakData)
+      return newStreakData
+    })
+  }
   
   let notDoneStreakElements: JSX.Element[] = [], doneStreakElements: JSX.Element[] = []
 
@@ -39,6 +50,7 @@ const Streaks = () => {
     const StreakElement = (
       <div key={Streak.streakName}
            className="streak-wrapper"
+           onClick={() => handleClick(Streak.streakName)}
       >
         <div className="streak-name">{Streak.streakName}</div>
         <div className="streak-number">{Streak.streak}</div>
