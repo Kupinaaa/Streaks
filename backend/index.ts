@@ -54,7 +54,7 @@ app.post("/", async (req: Request, res: Response) => {
       const newStreak = new Streak ({
          streak: 0,
          streakName: req.body.streakName,
-         lastDate: new Date().toJSON()
+         lastDate: req.body.lastDate
       })
 
       await newStreak.save()
@@ -81,7 +81,7 @@ app.patch("/", async (req: Request, res: Response) => {
       const currDate = Date.parse(req.body.lastDate), prevDate = Date.parse(streak.lastDate)      
       let days = (currDate - prevDate) / (1000 * 3600 * 24)
 
-      if (days < 1) return res.status(200).json({ streak, days: days, message: "Streak not updated: It hasn't been 24 hours yet", code: 0 })
+      if (days < 1) return res.status(200).json({ streak, days: days, message: "Streak not updated: A day hasn't passed yet", code: 0 })
 
       if (days > 2) {
          if (req.body.upd == true) {
