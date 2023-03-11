@@ -10,11 +10,13 @@ const Streaks = () => {
     done: boolean
   }
 
-  const [StreakData, setStreakData] = useState<StreakInterface[]>([
-    { streakName: "StreakName", streak: 5, lastDate: "test", done: true },
-    { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
-    { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
-  ])
+  // const [StreakData, setStreakData] = useState<StreakInterface[]>([
+  //   { streakName: "StreakName", streak: 5, lastDate: "test", done: true },
+  //   { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
+  //   { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
+  // ])
+  
+  const [StreakData, setStreakData] = useState<StreakInterface[]>([])
 
   useEffect( () => { 
     (async () => {
@@ -25,6 +27,8 @@ const Streaks = () => {
           }
         }
       )
+      console.log('abkjasdlkf')
+      console.log(StreaksJSON)
       setStreakData(await StreaksJSON.json())
     })()
   }, [] )
@@ -37,11 +41,12 @@ const Streaks = () => {
       if (Streak.streakName === changeStreakName) return true
       else return false
     })
+    if(changeStreak == null) return
+    const Today = new Date()
+    Today.setHours(0, 0, 0, 0)
+    changeStreak.lastDate = Today.toJSON()
     fetch('http://localhost:3000', {
       method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json"
-      },
       body: JSON.stringify(changeStreak)
     })
   }

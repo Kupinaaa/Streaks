@@ -12,13 +12,15 @@ db.once('connected', () => console.log("Succesfuly connected to db"))
 interface IStreak extends mongoose.Document {
    streak: number,
    streakName: string,
-   lastDate: string 
+   lastDate: string,
+   done: boolean
 }
 
 const streakSchema = new mongoose.Schema<IStreak>({
    streak: Number,
    streakName: String,
-   lastDate: String
+   lastDate: String,
+   done: Boolean 
 })
 
 const Streak = mongoose.model<IStreak>('Streak', streakSchema)
@@ -26,12 +28,11 @@ const Streak = mongoose.model<IStreak>('Streak', streakSchema)
 app.use(express.json())
 
 app.use(function (req, res, next) {
-res.setHeader('Access-Control-Allow-Origin', '*');
-res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-next();
+   res.setHeader('Access-Control-Allow-Origin', '*');
+   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+   next();
 });
-
 
 app.get("/", async (_req: Request, res: Response) => {
    try {
@@ -69,6 +70,8 @@ app.patch("/", async (req: Request, res: Response) => {
    try {
       const streak = await Streak.findOne({streakName: req.body.streakName})
 
+      console.log(req.body)
+
       if (streak == null) {
          return res.status(404).json({ message: "Bad request: Streak not found", code: -1 })
       }
@@ -81,6 +84,10 @@ app.patch("/", async (req: Request, res: Response) => {
       //The date sent by the user will be the start of their current day (0h 0m 0s), written in the frontend
       const currDate = Date.parse(req.body.lastDate), prevDate = Date.parse(streak.lastDate)      
       let days = (currDate - prevDate) / (1000 * 3600 * 24)
+
+      console.log(currDate, prevDate)
+
+      if (isNaN(days)) return res.status(500).json({message: `Invalid dates: ${currDate}, and ${prevDate}`})
 
       if (days < 1) return res.status(200).json({ streak, days: days, message: "Streak not updated: A day hasn't passed yet", code: 0 })
 
