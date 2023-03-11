@@ -25,20 +25,33 @@ const Streaks = () => {
           }
         }
       )
-      console.log(StreaksJSON)
       setStreakData(await StreaksJSON.json())
     })()
   }, [] )
 
 
-  if (!StreakData) throw {error: 'StreakData undefined'}
+  // if (!StreakData) throw {error: 'StreakData undefined'}
 
-  const handleClick = (chnageStreakName: string) => {
+  const sendNewStreak = (changeStreakName: string) => {
+    const changeStreak = StreakData.find((Streak) => {
+      if (Streak.streakName === changeStreakName) return true
+      else return false
+    })
+    fetch('http://localhost:3000', {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(changeStreak)
+    })
+  }
+
+  const handleClick = (changeStreakName: string) => {
     setStreakData(() => {
       let changed: StreakInterface | undefined
       let newStreakData: StreakInterface[] = [] 
       StreakData.forEach((streak, index) => {
-        if (streak.streakName === chnageStreakName){
+        if (streak.streakName === changeStreakName){
           changed = StreakData[index]
         } else {
           newStreakData.push(StreakData[index])
@@ -52,6 +65,7 @@ const Streaks = () => {
       }
       return newStreakData
     })
+    sendNewStreak(changeStreakName)
   }
   
   let notDoneStreakElements: JSX.Element[] = [], doneStreakElements: JSX.Element[] = []
