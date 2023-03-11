@@ -34,7 +34,6 @@ const Streaks = () => {
   if (!StreakData) throw {error: 'StreakData undefined'}
 
   const handleClick = (chnageStreakName: string) => {
-    console.log(chnageStreakName)
     setStreakData(() => {
       let changed: StreakInterface | undefined
       let newStreakData: StreakInterface[] = [] 
@@ -45,7 +44,6 @@ const Streaks = () => {
           newStreakData.push(StreakData[index])
         } 
       })
-      console.log(changed)
       if(changed != undefined) {
         changed.done = !changed.done
         if (changed.done === true) changed.streak++
