@@ -27,11 +27,18 @@ const Streaks = () => {
           }
         }
       )
-      console.log('abkjasdlkf')
-      console.log(StreaksJSON)
-      setStreakData(await StreaksJSON.json())
+      let FetchedStreaks = await StreaksJSON.json()
+      const Today = new Date()
+      Today.setHours(0, 0, 0, 0)
+      setStreakData(FetchedStreaks.map((streak:StreakInterface) => {
+        if (streak.lastDate === Today.toJSON()){
+          console.log({...streak, done: true})
+          return {...streak, done: true}
+        } else return {...streak, done: false}
+      }))
     })()
   }, [] )
+
 
 
   // if (!StreakData) throw {error: 'StreakData undefined'}
@@ -47,6 +54,9 @@ const Streaks = () => {
     changeStreak.lastDate = Today.toJSON()
     fetch('http://localhost:3000', {
       method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(changeStreak)
     })
   }

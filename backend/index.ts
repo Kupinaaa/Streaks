@@ -13,14 +13,12 @@ interface IStreak extends mongoose.Document {
    streak: number,
    streakName: string,
    lastDate: string,
-   done: boolean
 }
 
 const streakSchema = new mongoose.Schema<IStreak>({
    streak: Number,
    streakName: String,
    lastDate: String,
-   done: Boolean 
 })
 
 const Streak = mongoose.model<IStreak>('Streak', streakSchema)
