@@ -78,6 +78,7 @@ app.patch("/", async (req: Request, res: Response) => {
       }
 
       //Date check
+      //The date sent by the user will be the start of their current day (0h 0m 0s), written in the frontend
       const currDate = Date.parse(req.body.lastDate), prevDate = Date.parse(streak.lastDate)      
       let days = (currDate - prevDate) / (1000 * 3600 * 24)
 
