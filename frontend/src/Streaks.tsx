@@ -10,13 +10,13 @@ const Streaks = () => {
     done: boolean
   }
 
-  // const [StreakData, setStreakData] = useState<StreakInterface[]>([
-  //   { streakName: "StreakName", streak: 5, lastDate: "test", done: true },
-  //   { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
-  //   { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
-  // ])
+  const [StreakData, setStreakData] = useState<StreakInterface[]>([
+    { streakName: "StreakName", streak: 5, lastDate: "test", done: true },
+    { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
+    { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
+  ])
   
-  const [StreakData, setStreakData] = useState<StreakInterface[]>([])
+  // const [StreakData, setStreakData] = useState<StreakInterface[]>([])
 
   useEffect( () => { 
     (async () => {
