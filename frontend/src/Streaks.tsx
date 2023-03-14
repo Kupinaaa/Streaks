@@ -20,13 +20,12 @@ const Streaks = () => {
 
   useEffect( () => { 
     (async () => {
-        const StreaksJSON = await fetch('http://localhost:3000', {
-          method: 'GET',
-          headers: {
-            "Content-Type": "application/json"
-          }
+      const StreaksJSON = await fetch('http://localhost:3000', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json"
         }
-      )
+      })
       let FetchedStreaks = await StreaksJSON.json()
       const Today = new Date()
       Today.setHours(0, 0, 0, 0)
@@ -95,11 +94,9 @@ const Streaks = () => {
         <div className="streak-number">{Streak.streak}</div>
       </div>
     )
-
     if (Streak.done == true) doneStreakElements.push(StreakElement)
     else notDoneStreakElements.push(StreakElement)
   })
-  
 
   return ( 
     <div className="Streaks">
