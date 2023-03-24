@@ -87,11 +87,11 @@ const Streaks = () => {
   StreakData.forEach((Streak:StreakInterface) => {
     const StreakElement = (
       <div key={Streak.streakName}
-           className="streak-wrapper"
+           className="streakWrapper"
            onClick={() => {handleClick(Streak.streakName)}}
       >
-        <div className="streak-name">{Streak.streakName}</div>
-        <div className="streak-number">{Streak.streak}</div>
+        <div className="streakName">{Streak.streakName}</div>
+        <div className="streakNumber">{Streak.streak}</div>
       </div>
     )
     if (Streak.done == true) doneStreakElements.push(StreakElement)
@@ -103,6 +103,12 @@ const Streaks = () => {
       <div className="notDoneStreaks">
         <div className="title">Not Done</div>
         {notDoneStreakElements}
+        <div className="addStreak">
+          <div className="plus">
+            <div className="vert"></div>
+            <div className="horiz"></div>
+          </div>
+        </div>
       </div>
       <div className="doneStreaks">
         <div className="title">Done</div>
