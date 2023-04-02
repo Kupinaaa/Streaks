@@ -1,7 +1,6 @@
-import { JSXElementConstructor, ReactElement, ReactFragment, useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 const Streaks = () => {
-
 
   interface StreakInterface {
     streakName: string,
@@ -11,12 +10,14 @@ const Streaks = () => {
   }
 
   const [StreakData, setStreakData] = useState<StreakInterface[]>([
-    { streakName: "StreakName", streak: 5, lastDate: "test", done: true },
+    { streakName: "Lesha is a good boy", streak: 10000, lastDate: "test", done: true },
     { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
     { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
   ])
   
   // const [StreakData, setStreakData] = useState<StreakInterface[]>([])
+  const [newStreakModal, setNewStreakModal] = useState(false)
+  const [newStreakName, setNewStreakName] = useState('')
 
   useEffect( () => { 
     (async () => {
@@ -29,7 +30,7 @@ const Streaks = () => {
       let FetchedStreaks = await StreaksJSON.json()
       const Today = new Date()
       Today.setHours(0, 0, 0, 0)
-      setStreakData(FetchedStreaks.map((streak:StreakInterface) => {
+      setStreakData(FetchedStreaks.map((streak: StreakInterface) => {
         if (streak.lastDate === Today.toJSON()){
           console.log({...streak, done: true})
           return {...streak, done: true}
@@ -60,7 +61,7 @@ const Streaks = () => {
     })
   }
 
-  const handleClick = (changeStreakName: string) => {
+  const handleStreakClick = (changeStreakName: string) => {
     setStreakData(() => {
       let changed: StreakInterface | undefined
       let newStreakData: StreakInterface[] = [] 
@@ -88,7 +89,7 @@ const Streaks = () => {
     const StreakElement = (
       <div key={Streak.streakName}
            className="streakWrapper"
-           onClick={() => {handleClick(Streak.streakName)}}
+           onClick={() => {handleStreakClick(Streak.streakName)}}
       >
         <div className="streakName">{Streak.streakName}</div>
         <div className="streakNumber">{Streak.streak}</div>
@@ -98,12 +99,16 @@ const Streaks = () => {
     else notDoneStreakElements.push(StreakElement)
   })
 
+  console.log(newStreakName)
+
   return ( 
+    <>
     <div className="Streaks">
       <div className="notDoneStreaks">
         <div className="title">Not Done</div>
         {notDoneStreakElements}
-        <div className="addStreak">
+        <div className="addStreak"
+        onClick={() => { setNewStreakModal(prev => !prev) }}>
           <div className="plus">
             <div className="vert"></div>
             <div className="horiz"></div>
@@ -115,6 +120,12 @@ const Streaks = () => {
         {doneStreakElements}
       </div>
     </div>
+    { newStreakModal && <div className="newStreakModal frosted" onClick={(e) => { if(e.target == e.currentTarget) {setNewStreakModal(prev => !prev)} }}>
+      <div className="newStreakBox">
+        <input className="newStreakInput" name="newStreakName" type="text" placeholder="Streak name" value={newStreakName} onChange={e => setNewStreakName(e.target.value)}/>
+      </div>
+    </div> } 
+    </>
   )
 }
 
