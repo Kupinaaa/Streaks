@@ -4,7 +4,7 @@
 ##### Edit date: the 13th of March, 2023
 
 The current look of things:
-![Screenshot_20230313_233815](https://user-images.githubusercontent.com/56956339/224894726-5e922795-4a6e-41a0-a737-c848a46e32cb.png)
+![Screenshot_20230403_183458](https://user-images.githubusercontent.com/56956339/229649142-15501ec1-7400-4b03-b280-a35a9378e593.png)
 
 #### The app is being built with MongoDB (mongoose), ExpressJS, ReactJS (vite) and TypeScript; or basically the MERN stack
 React Router might be a later addition, for a more tiktokie look with a comunity and friends tabs
@@ -20,9 +20,12 @@ or in other words a **streak** of days, hence the name
 4. After you can start tboth he back and front end servers with ```npm run dev```
 
 #### The basic functionality of the Streaks app (v0.1):
-- Add Streaks (with no assigned user)
-- Edit Streaks, Update the streak count
-- Remove Streaks
-- Display all streaks in a neat way 
+- [x] Display all streaks in a neat way
+- [x] Update the streak count
+- [x] Add Streaks (with no assigned user)
+- [ ] Remove Streaks
+- [ ] Update the streak name
+
+#### The
 
 #### There is now a new idea to transform this project into something different, but for now I want to finnish this one, for personal use
