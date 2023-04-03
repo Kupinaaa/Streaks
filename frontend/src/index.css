@@ -267,8 +267,18 @@ input:focus {
     background-color: rgb(125, 50, 50);
 
     margin-left: auto;
+    transition: 0.25s;
 }
 
 .button.cancel {
     margin-left: 0;
+    transition: 0.25s;
+}
+
+.button.add:hover {
+    background-color: rgb(182, 70, 70);
+}
+
+.button.cancel:hover {
+    background-color: rgba(255, 255, 255, 0.08);
 }
