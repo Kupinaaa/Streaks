@@ -2,6 +2,8 @@
     box-sizing: border-box;
 
     user-select: none;
+
+    font-family: sans-serif; 
 }
 
 html, body, #root {
@@ -12,6 +14,7 @@ html, body, #root {
 
     background-color: rgb(12, 13, 10);
     color: white;
+
 
     display: flex;
     align-items: center;
@@ -202,7 +205,11 @@ html, body, #root {
     margin-top: 200px;
     border-radius: 10px;
 
+    position: relative;
+
     border: 2px rgba(255, 255, 255, 0.3) solid;
+
+    padding: 20px;
 }
 
 .newStreakInput {
@@ -214,15 +221,54 @@ html, body, #root {
     background-color: rgb(12, 13, 10);
     color: white;
 
-    width: calc(100% - 25px);
+    width: 100%;
     height: 35px;
 
-    font-size: 25px;
-
-    margin-top: 20px;
-    margin-left: 25px;
+    font-size: 21px;
 }
 
 input:focus {
     outline: none;
+}
+
+.bottomNav {
+    display: flex;
+
+    position: absolute;
+    bottom: 16px;
+    left: 0px;
+
+    width: 100%;
+
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.button {
+    background-color: rgba(255, 255, 255, 0.04);
+
+    color: white;
+
+    border-radius: 6px;
+
+    height: 35px;
+    width: 90px;
+
+    font-size: 13px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button.add {
+    width: 80px;
+
+    background-color: rgb(125, 50, 50);
+
+    margin-left: auto;
+}
+
+.button.cancel {
+    margin-left: 0;
 }

@@ -10,7 +10,7 @@ const Streaks = () => {
   }
 
   const [StreakData, setStreakData] = useState<StreakInterface[]>([
-    { streakName: "Lesha is a good boy", streak: 10000, lastDate: "test", done: true },
+    { streakName: "L", streak: 10000, lastDate: "test", done: true },
     { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
     { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
   ])
@@ -18,6 +18,7 @@ const Streaks = () => {
   // const [StreakData, setStreakData] = useState<StreakInterface[]>([])
   const [newStreakModal, setNewStreakModal] = useState(false)
   const [newStreakName, setNewStreakName] = useState('')
+  const newStreakFocusRef = useRef<any>()
 
   useEffect( () => { 
     (async () => {
@@ -27,9 +28,12 @@ const Streaks = () => {
           "Content-Type": "application/json"
         }
       })
+
       let FetchedStreaks = await StreaksJSON.json()
+
       const Today = new Date()
       Today.setHours(0, 0, 0, 0)
+
       setStreakData(FetchedStreaks.map((streak: StreakInterface) => {
         if (streak.lastDate === Today.toJSON()){
           console.log({...streak, done: true})
@@ -37,21 +41,26 @@ const Streaks = () => {
         } else return {...streak, done: false}
       }))
     })()
+    console.log('aboba')
   }, [] )
 
-
+  useEffect( () => {
+    if (newStreakFocusRef.current != null) newStreakFocusRef.current.focus()
+  }, [newStreakModal] )
 
   // if (!StreakData) throw {error: 'StreakData undefined'}
 
-  const sendNewStreak = (changeStreakName: string) => {
+  const serverUpdateStreak = (changeStreakName: string) => {
     const changeStreak = StreakData.find((Streak) => {
       if (Streak.streakName === changeStreakName) return true
       else return false
     })
     if(changeStreak == null) return
+
     const Today = new Date()
     Today.setHours(0, 0, 0, 0)
     changeStreak.lastDate = Today.toJSON()
+
     fetch('http://localhost:3000', {
       method: 'PATCH',
       headers: {
@@ -61,10 +70,37 @@ const Streaks = () => {
     })
   }
 
+  const addNewStreak = (newStreakName: string) => {
+    if(newStreakName == '' || StreakData.find((Streak) => { if(Streak.streakName == newStreakName) return true })) return
+
+    const Yesterday = new Date()
+    Yesterday.setHours(-24, 0, 0, 0)    // Set date to prev day
+
+    const newStreak: StreakInterface = {
+      streakName: newStreakName,
+      streak: 0,
+      done: false,
+      lastDate: Yesterday.toJSON()
+    }
+
+    setStreakData((prev) => {
+      return [...prev, newStreak]
+    })
+
+    fetch('http://localhost:3000', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newStreak)
+    })
+  }
+
   const handleStreakClick = (changeStreakName: string) => {
     setStreakData(() => {
       let changed: StreakInterface | undefined
-      let newStreakData: StreakInterface[] = [] 
+      let newStreakData: StreakInterface[] = []
+
       StreakData.forEach((streak, index) => {
         if (streak.streakName === changeStreakName){
           changed = StreakData[index]
@@ -72,15 +108,17 @@ const Streaks = () => {
           newStreakData.push(StreakData[index])
         } 
       })
+
       if(changed != undefined) {
         changed.done = !changed.done
         if (changed.done === true) changed.streak++
         else changed.streak--
         newStreakData.push(changed)
       }
+
       return newStreakData
     })
-    sendNewStreak(changeStreakName)
+    serverUpdateStreak(changeStreakName)
   }
   
   let notDoneStreakElements: JSX.Element[] = [], doneStreakElements: JSX.Element[] = []
@@ -103,7 +141,7 @@ const Streaks = () => {
 
   return ( 
     <>
-    <div className="Streaks">
+    <div className="Streaks" >
       <div className="notDoneStreaks">
         <div className="title">Not Done</div>
         {notDoneStreakElements}
@@ -120,9 +158,29 @@ const Streaks = () => {
         {doneStreakElements}
       </div>
     </div>
-    { newStreakModal && <div className="newStreakModal frosted" onClick={(e) => { if(e.target == e.currentTarget) {setNewStreakModal(prev => !prev)} }}>
+    { newStreakModal && <div className="newStreakModal frosted" 
+      onClick={(e) => {
+        if (e.target == e.currentTarget) {
+          setNewStreakModal(prev => !prev)
+        } 
+      }}
+      onKeyDown={(e) => {
+        if(e.key == 'Enter' || e.key == 'Escape'){
+          addNewStreak(newStreakName)
+          setNewStreakModal(false)
+          setNewStreakName('')
+        }
+      }}>
       <div className="newStreakBox">
-        <input className="newStreakInput" name="newStreakName" type="text" placeholder="Streak name" value={newStreakName} onChange={e => setNewStreakName(e.target.value)}/>
+        <input className="newStreakInput" ref={newStreakFocusRef} name="newStreakName" type="text" placeholder="Streak name" value={newStreakName} onChange={e => setNewStreakName(e.target.value)}/>
+        <div className="bottomNav">
+          <div className="button cancel" onClick={(e) => {setNewStreakModal(false)}}>Cancel</div>
+          <div className="button add" onClick={(e) => {
+            addNewStreak(newStreakName)
+            setNewStreakModal(false)
+            setNewStreakName('')
+          }} >Add</div>
+        </div>
       </div>
     </div> } 
     </>
