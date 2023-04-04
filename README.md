@@ -1,7 +1,7 @@
 # Streaks
 
 ### This is a WIP!
-##### Edit date: the 13th of March, 2023
+##### Edit date: the 3rd of April, 2023
 
 The current look of things:
 ![Screenshot_20230403_183458](https://user-images.githubusercontent.com/56956339/229649142-15501ec1-7400-4b03-b280-a35a9378e593.png)
