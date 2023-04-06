@@ -20,6 +20,9 @@ const Streaks = () => {
   const [newStreakName, setNewStreakName] = useState('')
   const newStreakFocusRef = useRef<any>()
 
+  const [streakDisplayModal, setStreakDisplayModal] = useState(false)
+  const streakDisplay = useRef<any>(null)
+
   useEffect( () => { 
     (async () => {
       const StreaksJSON = await fetch('http://localhost:3000', {
@@ -127,7 +130,10 @@ const Streaks = () => {
     const StreakElement = (
       <div key={Streak.streakName}
            className="streakWrapper"
-           onClick={() => {handleStreakClick(Streak.streakName)}}
+           onClick={() => {
+            setStreakDisplayModal(true)
+            streakDisplay.current = Streak
+          }}
       >
         <div className="streakName">{Streak.streakName}</div>
         <div className="streakNumber">{Streak.streak}</div>
@@ -161,7 +167,7 @@ const Streaks = () => {
     { newStreakModal && <div className="newStreakModal frosted" 
       onClick={(e) => {
         if (e.target == e.currentTarget) {
-          setNewStreakModal(prev => !prev)
+          setNewStreakModal(false)
         } 
       }}
       onKeyDown={(e) => {
@@ -183,6 +189,23 @@ const Streaks = () => {
         </div>
       </div>
     </div> } 
+    { streakDisplayModal && 
+      <div className="streakDisplayModal"
+        onClick={(e) => {
+          if (e.target == e.currentTarget) {
+            setStreakDisplayModal(false)
+          } 
+        }}
+        onKeyDown={(e) => {
+          if(e.key == 'Enter' || e.key == 'Escape'){
+            setStreakDisplayModal(false)
+            console.log(e.key)
+          }
+        }}
+      >
+        <div className="streakDisplayBox">{ "bruh (the ref bs doesn't work lol)" }</div>
+      </div>
+    }
     </>
   )
 }

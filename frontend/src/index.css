@@ -246,7 +246,6 @@ input:focus {
 
 .button {
     background-color: rgba(255, 255, 255, 0.04);
-
     color: white;
 
     border-radius: 6px;
@@ -281,4 +280,28 @@ input:focus {
 
 .button.cancel:hover {
     background-color: rgba(255, 255, 255, 0.08);
+}
+
+.streakDisplayModal {
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.streakDisplayBox {
+    height: 95vh;
+    width: 35vw;
+
+    background-color: rgb(12, 13, 10);
+
+    border-radius: 8px;
+    border: 2px rgba(255, 255, 255, 0.3) solid;
+
+    padding: 20px;
 }
