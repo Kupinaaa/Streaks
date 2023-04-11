@@ -17,7 +17,7 @@ or in other words a **streak** of days, hence the name
 1. Install nodejs and mongodb
 2. Run mongodb (for linux: ```sudo systemctl start mongodb```, for everything else read mongodb docs on how to start a server)
 3. Go into both the back and front end folders and in each run ```npm install```
-4. After you can start tboth he back and front end servers with ```npm run dev```
+4. After you can start both the back and front end servers with ```npm run dev```
 
 #### The basic functionality of the Streaks app (v0.1):
 - [x] Display all streaks in a neat way
@@ -25,7 +25,6 @@ or in other words a **streak** of days, hence the name
 - [x] Add Streaks (with no assigned user)
 - [ ] Remove Streaks
 - [ ] Update the streak name
-
-#### The
+- [ ] Github like log of streak
 
 #### There is now a new idea to transform this project into something different, but for now I want to finnish this one, for personal use
