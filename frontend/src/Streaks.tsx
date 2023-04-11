@@ -21,7 +21,7 @@ const Streaks = () => {
   const newStreakFocusRef = useRef<any>()
 
   const [streakDisplayModal, setStreakDisplayModal] = useState(false)
-  const streakDisplay = useRef<any>(null)
+  let streakDisplayName = useRef<any>("")
 
   useEffect( () => { 
     (async () => {
@@ -132,7 +132,7 @@ const Streaks = () => {
            className="streakWrapper"
            onClick={() => {
             setStreakDisplayModal(true)
-            streakDisplay.current = Streak
+            streakDisplayName.current = Streak.streakName
           }}
       >
         <div className="streakName">{Streak.streakName}</div>
@@ -143,7 +143,11 @@ const Streaks = () => {
     else notDoneStreakElements.push(StreakElement)
   })
 
-  console.log(newStreakName)
+  const streakHTML = (streakName: string) => {
+    return (
+      <div className="test">{streakName}</div>
+    )
+  }
 
   return ( 
     <>
@@ -203,7 +207,11 @@ const Streaks = () => {
           }
         }}
       >
-        <div className="streakDisplayBox">{ "bruh (the ref bs doesn't work lol)" }</div>
+        <div className="streakDisplayBox">
+          <div className="displayBox">
+            <div className="name">{streakDisplayName.current}</div>
+          </div>
+        </div>
       </div>
     }
     </>
