@@ -51,31 +51,19 @@ html, body, #root {
 }
 
 .streakWrapper {
-    display: block;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     margin-top: 13px;
-    padding: 10px;
-    padding-left: 20px;
+    padding: 20px;
+    padding-left: 15px;
 
     min-height: 80px;
     width: 95%;
     border-radius: 5px;
 
     background-color: #182418;
-}
-
-.streakWrapper {
-    display: block;
-    position: relative;
-
-    margin-top: 13px;
-    padding: 10px;
-    padding-left: 20px;
-
-    min-height: 80px;
-    width: 95%;
-    border-radius: 5px;
 }
 
 .notDoneStreaks > .streakWrapper {
@@ -93,21 +81,10 @@ html, body, #root {
 
 .streakNumber {
     margin-left: auto;
-    position: absolute;
-
-    right: 25px;
-    top: 50%;
-    transform: translate(0, -50%);
-
     font-size: 25px;
 }
 
 .streakName {
-    position: absolute;
-
-    top: 50%;
-    transform: translate(0, -50%);
-
     font-size: 21px;
 }
 
@@ -311,8 +288,8 @@ input:focus {
 
     display: inline-block;
 
-    height: 22px;
-    width: 22px;
+    height: 20px;
+    width: 20px;
 
     border: 1px solid rgb(255, 255, 255);
 }
