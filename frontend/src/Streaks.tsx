@@ -53,25 +53,6 @@ const Streaks = () => {
 
   // if (!StreakData) throw {error: 'StreakData undefined'}
 
-  const serverUpdateStreak = (changeStreakName: string) => {
-    const changeStreak = StreakData.find((Streak) => {
-      if (Streak.streakName === changeStreakName) return true
-      else return false
-    })
-    if(changeStreak == null) return
-
-    const Today = new Date()
-    Today.setHours(0, 0, 0, 0)
-    changeStreak.lastDate = Today.toJSON()
-
-    fetch('http://localhost:3000', {
-      method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(changeStreak)
-    })
-  }
 
   const addNewStreak = (newStreakName: string) => {
     if(newStreakName == '' || StreakData.find((Streak) => { if(Streak.streakName == newStreakName) return true })) return
@@ -99,11 +80,30 @@ const Streaks = () => {
     })
   }
 
-  const handleStreakClick = (changeStreakName: string) => {
+  const serverUpdateStreak = (changeStreakName: string) => {
+    const changeStreak = StreakData.find((Streak) => {
+      if (Streak.streakName === changeStreakName) return true
+      else return false
+    })
+    if(changeStreak == null) return
+
+    const Today = new Date()
+    Today.setHours(0, 0, 0, 0)
+    changeStreak.lastDate = Today.toJSON()
+
+    fetch('http://localhost:3000', {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(changeStreak)
+    })
+  }
+
+  const updateStreak = (changeStreakName: string) => {
     setStreakData(() => {
       let changed: StreakInterface | undefined
       let newStreakData: StreakInterface[] = []
-
       StreakData.forEach((streak, index) => {
         if (streak.streakName === changeStreakName){
           changed = StreakData[index]
@@ -130,8 +130,8 @@ const Streaks = () => {
     const StreakElement = (
       <div key={Streak.streakName}
            className="streakWrapper"
-           onClick={() => {
-            setStreakDisplayModal(true)
+           onClick={(e) => {
+            if (e.target == e.currentTarget) setStreakDisplayModal(true)
             streakDisplayName.current = Streak.streakName
           }}
       >
@@ -141,7 +141,9 @@ const Streaks = () => {
           justifyContent: "center",
           marginRight: "8px",
           borderRadius: "50%"
-        }}>
+        }}
+          onClick={() => {updateStreak(Streak.streakName)}}
+        >
           <svg className="tick" height="10px" width="10px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={(Streak.done ? "#FFFFFF" : "transparent")}><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
         </div>
         <div className="streakName">{Streak.streakName}</div>
@@ -230,7 +232,7 @@ const Streaks = () => {
                 marginRight: "10px",
                 borderRadius: "50%"
               }}>
-               <svg className="tick" height="10px" width="10px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill="#FFFFFF"><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
+               <svg className="tick" height="10px" width="10px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={ (StreakData.find((value: StreakInterface, index: number) => { if(value.streakName == streakDisplayName.current) return true })?.done ? "#FFFFFF" : "transparent") }><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
               </div>
               <span style={{fontSize: "35px"}}>{streakDisplayName.current}</span>
             </div>
