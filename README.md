@@ -1,10 +1,10 @@
 # Streaks
 
 ### This is a WIP!
-##### Edit date: the 3rd of April, 2023
+##### Edit date: the 28th of April, 2023
 
-The current look of things:
-![Screenshot_20230403_183458](https://user-images.githubusercontent.com/56956339/229649142-15501ec1-7400-4b03-b280-a35a9378e593.png)
+The current look of things:![Screenshot_20230428_101732](https://user-images.githubusercontent.com/56956339/235187698-9874f309-dd05-4e70-b666-5676a213dd53.png)
+
 
 #### The app is being built with MongoDB (mongoose), ExpressJS, ReactJS (vite) and TypeScript; or basically the MERN stack
 React Router might be a later addition, for a more tiktokie look with a comunity and friends tabs
@@ -26,5 +26,6 @@ or in other words a **streak** of days, hence the name
 - [ ] Remove Streaks
 - [ ] Update the streak name
 - [ ] Github like log of streak
+- [ ] Fix server (rework)
 
 #### There is now a new idea to transform this project into something different, but for now I want to finnish this one, for personal use
