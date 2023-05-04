@@ -292,4 +292,17 @@ input:focus {
     width: 20px;
 
     border: 1px solid rgb(255, 255, 255);
+
+}
+
+.notDoneStreaks svg {
+    color: transparent;
+}
+
+.taskCircle > * {
+    transition: 0.25s;
+}
+
+.taskCircle:hover > * {
+    color: white;
 }

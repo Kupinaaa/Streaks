@@ -142,7 +142,7 @@ const Streaks = () => {
         }}
           onClick={() => {updateStreak(Streak.streakName)}}
         >
-          <svg className="tick" height="8px" width="8px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={(Streak.done ? "#FFFFFF" : "transparent")}><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
+          <svg className="tick" height="8px" width="8px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={"currentColor"}><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
         </div>
         <div className="streakName">{Streak.streakName}</div>
         <div className="streakNumber">{Streak.streak}</div>
