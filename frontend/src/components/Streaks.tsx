@@ -121,6 +121,27 @@ const Streaks = () => {
     })
     serverUpdateStreak(changeStreakName)
   }
+
+  const serverDeleteStreak = (deleteStreakName : string) => {
+    fetch('http://localhost:3000', {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({streakName: deleteStreakName})
+    })
+  }
+
+  const deleteStreak = (deleteStreakName : string) => {
+    setStreakData(() => {
+      return StreakData.filter((val) => {
+        if (val.streakName == deleteStreakName) return false
+        else return true
+      })
+    })
+
+    serverDeleteStreak(deleteStreakName)
+  }
   
   let notDoneStreakElements: JSX.Element[] = [], doneStreakElements: JSX.Element[] = []
 
@@ -231,6 +252,10 @@ const Streaks = () => {
               <span style={{fontSize: "35px"}}>{streakDisplayName.current}</span>
             </div>
           </div>
+          <div className="deleteButton" onClick={() => {
+            deleteStreak(streakDisplayName.current)
+            setStreakDisplayModal(false)
+          }}>Delete</div>
         </div>
       </div>
     }
