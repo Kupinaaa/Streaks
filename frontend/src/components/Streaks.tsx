@@ -6,13 +6,15 @@ const Streaks = () => {
     streakName: string,
     streak: number,
     lastDate: string,
+    dates: string[],
     done: boolean
   }
-
+  
+  const fakeDates = ["2023-05-07T05:00:00.000Z", "2023-05-08T05:00:00.000Z", "2023-05-09T05:00:00.000Z", "2023-05-10T05:00:00.000Z", "2023-05-11T05:00:00.000Z"]
   const [StreakData, setStreakData] = useState<StreakInterface[]>([
-    { streakName: "L", streak: 10000, lastDate: "test", done: true },
-    { streakName: "Working Out", streak: 2, lastDate: "test", done: false },
-    { streakName: "Doing Github", streak: 225, lastDate: "test", done: false }
+    { streakName: "L", streak: 10000, lastDate: "test", dates: fakeDates, done: true },
+    { streakName: "Working Out", streak: 2, lastDate: "test", dates: fakeDates, done: false },
+    { streakName: "Doing Github", streak: 225, lastDate: "test", dates: fakeDates, done: false }
   ])
   
   // const [StreakData, setStreakData] = useState<StreakInterface[]>([])
@@ -62,6 +64,7 @@ const Streaks = () => {
       streakName: newStreakName,
       streak: 0,
       done: false,
+      dates: [], 
       lastDate: Yesterday.toJSON()
     }
 
@@ -144,6 +147,37 @@ const Streaks = () => {
   }
   
   let notDoneStreakElements: JSX.Element[] = [], doneStreakElements: JSX.Element[] = []
+
+  const datesIntoArray = (dates: string[]) => {
+    const diffDays = (start: Date, day: Date) => {
+      return Math.floor((day.getTime() - start.getTime()) / (24 * 60 * 60 * 1000))
+    }
+
+    const ObjDates = dates.map((date) => {
+      return new Date(date)
+    })
+
+    const Today = new Date()
+    Today.setHours(0, 0, 0)
+
+    ObjDates.push(Today)
+
+    const days = 7*52 + ObjDates[ObjDates.length - 1].getDay()
+    const start = new Date(ObjDates[ObjDates.length - 1].getTime() - (days * 24 * 60 * 60 * 1000)) 
+
+    let ArrDates: boolean[] = Array.from(Array(days), () => false) // JSfuck my beloved
+
+    console.log(ObjDates)
+
+    ObjDates.forEach((day) => {
+      ArrDates[diffDays(start, day)] = true
+      console.log(day)
+    })
+
+    return ArrDates
+  }
+
+  console.log(datesIntoArray(fakeDates))
 
   StreakData.forEach((Streak:StreakInterface) => {
     const StreakElement = (
@@ -252,6 +286,9 @@ const Streaks = () => {
               <span style={{fontSize: "35px"}}>{streakDisplayName.current}</span>
             </div>
           </div>
+          <table className="githubColums">
+            tr
+          </table>
           <div className="deleteButton" onClick={() => {
             deleteStreak(streakDisplayName.current)
             setStreakDisplayModal(false)
