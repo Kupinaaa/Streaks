@@ -160,19 +160,18 @@ const Streaks = () => {
     const Today = new Date()
     Today.setHours(0, 0, 0)
 
-    ObjDates.push(Today)
+    const days = 7*52 + Today.getDay()
+    const start = new Date(Today.getTime() - (days * 24 * 60 * 60 * 1000))
 
-    const days = 7*52 + ObjDates[ObjDates.length - 1].getDay()
-    const start = new Date(ObjDates[ObjDates.length - 1].getTime() - (days * 24 * 60 * 60 * 1000)) 
-
-    let ArrDates: boolean[] = Array.from(Array(days), () => false) // JSfuck my beloved
+    let ArrDates: {activity: boolean, day: Date | null}[] = Array.from(Array(days), () => ({activity: false, day: null})) // JSfuck my beloved
 
     console.log(ObjDates)
 
     ObjDates.forEach((day) => {
-      ArrDates[diffDays(start, day)] = true
-      console.log(day)
+      ArrDates[diffDays(start, day)] = {activity: true, day: day}
     })
+
+    ArrDates
 
     return ArrDates
   }
