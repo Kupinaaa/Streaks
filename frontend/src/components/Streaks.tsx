@@ -171,7 +171,10 @@ const Streaks = () => {
       ArrDates[diffDays(start, day)] = {activity: true, day: day}
     })
 
-    ArrDates
+    ArrDates = ArrDates.map((obj, index) => {
+      obj.day = new Date(start.getTime() + 24 * 60 * 60 * 1000 * (index + 1))
+      return obj
+    })
 
     return ArrDates
   }
