@@ -23,7 +23,7 @@ const Streaks = () => {
   const newStreakFocusRef = useRef<any>()
 
   const [streakDisplayModal, setStreakDisplayModal] = useState(false)
-  let streakDisplayName = useRef<any>("")
+  let [streakDisplayName, setStreakDisplayName] =  useState("")
 
   useEffect( () => { 
     (async () => {
@@ -41,7 +41,6 @@ const Streaks = () => {
 
       setStreakData(FetchedStreaks.map((streak: StreakInterface) => {
         if (streak.lastDate === Today.toJSON()){
-          console.log({...streak, done: true})
           return {...streak, done: true}
         } else return {...streak, done: false}
       }))
@@ -148,7 +147,10 @@ const Streaks = () => {
   
   let notDoneStreakElements: JSX.Element[] = [], doneStreakElements: JSX.Element[] = []
 
-  const datesIntoArray = (dates: string[]) => {
+  const datesIntoArray = (dates: string[] | undefined) => {
+
+    if (dates == null) return
+
     const diffDays = (start: Date, day: Date) => {
       return Math.floor((day.getTime() - start.getTime()) / (24 * 60 * 60 * 1000))
     }
@@ -165,8 +167,6 @@ const Streaks = () => {
 
     let ArrDates: {activity: boolean, day: Date | null}[] = Array.from(Array(days), () => ({activity: false, day: null})) // JSfuck my beloved
 
-    console.log(ObjDates)
-
     ObjDates.forEach((day) => {
       ArrDates[diffDays(start, day)] = {activity: true, day: day}
     })
@@ -179,15 +179,13 @@ const Streaks = () => {
     return ArrDates
   }
 
-  console.log(datesIntoArray(fakeDates))
-
   StreakData.forEach((Streak:StreakInterface) => {
     const StreakElement = (
       <div key={Streak.streakName}
            className="streakWrapper"
            onClick={(e) => {
-            if (e.target == e.currentTarget) setStreakDisplayModal(true)
-            streakDisplayName.current = Streak.streakName
+            setStreakDisplayModal(true)
+            setStreakDisplayName(Streak.streakName)
           }}
       >
         <div className="taskCircle" style={{
@@ -197,7 +195,10 @@ const Streaks = () => {
           marginRight: "8px",
           borderRadius: "50%"
         }}
-          onClick={() => {updateStreak(Streak.streakName)}}
+          onClick={(e) => {
+            updateStreak(Streak.streakName)
+            e.stopPropagation()
+          }}
         >
           <svg className="tick" height="8px" width="8px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={"currentColor"}><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
         </div>
@@ -208,6 +209,16 @@ const Streaks = () => {
     if (Streak.done == true) doneStreakElements.push(StreakElement)
     else notDoneStreakElements.push(StreakElement)
   })
+
+  const table = datesIntoArray(StreakData.find((streak) => { return streak.streakName === streakDisplayName })?.dates)?.map((pre) => {
+    if (pre.day == null) return
+
+    return (
+      <td key={pre.day.getTime()} data-date={pre.day} data-activity={pre.activity}></td>
+    )
+  })
+
+  console.log(table)
 
   return ( 
     <>
@@ -281,18 +292,42 @@ const Streaks = () => {
                 marginRight: "10px",
                 borderRadius: "50%"
               }}
-                onClick={() => { updateStreak(streakDisplayName.current) }}
+                onClick={() => { updateStreak(streakDisplayName)}}
               >
-               <svg className="tick" height="8px" width="8px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={ (StreakData.find((value: StreakInterface, index: number) => { if(value.streakName == streakDisplayName.current) return true })?.done ? "#FFFFFF" : "transparent") }><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
+               <svg className="tick" height="8px" width="8px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={ (StreakData.find((value: StreakInterface, index: number) => { if(value.streakName == streakDisplayName) return true })?.done ? "#FFFFFF" : "transparent") }><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
               </div>
-              <span style={{fontSize: "35px"}}>{streakDisplayName.current}</span>
+              <span style={{fontSize: "35px"}}>{streakDisplayName}</span>
             </div>
           </div>
           <table className="githubColums">
-            tr
+            <tbody>
+              <tr className="top">
+              </tr>
+              <tr className="monday">
+                {table?.map((v, i) => { if (i % 7 == 0) return v })}
+              </tr>
+              <tr className="tuesday">
+                {table?.map((v, i) => { if (i % 7 == 1) return v})}
+              </tr>
+              <tr className="wendesday">
+                {table?.map((v, i) => { if (i % 7 == 2) return v})}
+              </tr>
+              <tr className="thursday">
+                {table?.map((v, i) => { if (i % 7 == 3) return v})}
+              </tr>
+              <tr className="friday">
+                {table?.map((v, i) => { if (i % 7 == 4) return v})}
+              </tr>
+              <tr className="saturday">
+                {table?.map((v, i) => { if (i % 7 == 5) return v})}
+              </tr>
+              <tr className="sunday">
+                {table?.map((v, i) => { if (i % 7 == 6) return v})}
+              </tr>
+            </tbody>
           </table>
           <div className="deleteButton" onClick={() => {
-            deleteStreak(streakDisplayName.current)
+            deleteStreak(streakDisplayName)
             setStreakDisplayModal(false)
           }}>Delete</div>
         </div>

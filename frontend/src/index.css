@@ -332,3 +332,20 @@ input:focus {
 .deleteButton:hover {
     background-color: rgb(182, 70, 70);
 }
+
+table {
+    width: max-content;
+    overflow-x: scroll;
+}
+
+td {
+    width: 10px;
+    height: 10px;
+}
+
+td[data-activity="true"] {
+    background-color: green;
+}
+td[data-activity="false"] {
+    background-color: black;
+}
