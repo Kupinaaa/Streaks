@@ -159,7 +159,6 @@ html, body, #root {
 
 .frosted {
     backdrop-filter: blur(5px);
-    transition: 10s;
 }
 
 .newStreakModal {
@@ -272,8 +271,10 @@ input:focus {
 }
 
 .streakDisplayBox {
-    height: 95vh;
-    width: 35vw;
+    height: 60vh;
+    width: 50vw;
+
+    min-width: 800px;
 
     background-color: rgb(12, 13, 10);
 
@@ -336,16 +337,38 @@ input:focus {
 table {
     width: max-content;
     overflow-x: scroll;
+
+    border-collapse: separate;
+    border-spacing: 3px;
 }
 
 td {
-    width: 10px;
-    height: 10px;
+    width: 10px !important;
+    height: 10px !important;
+
+    border-radius: 2px;
 }
 
 td[data-activity="true"] {
-    background-color: green;
+    background-color: #2ca03f;
 }
+
 td[data-activity="false"] {
-    background-color: black;
+    background-color: #161b22;
+}
+
+.borderThin {
+    border: 1px solid #30363d;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 750px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -280,7 +280,7 @@ const Streaks = () => {
           <div className="cross" style={{display: 'flex', justifyContent: 'right'}} >
             <svg fill="#ffffff" onClick={() => { setStreakDisplayModal(false) }} height="12px" width="12px" version="1.1" id="Capa_1" viewBox="0 0 460.775 460.775" ><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <path d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55 c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55 c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505 c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55 l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719 c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"></path> </g></svg>
           </div>
-          <div className="name" style={{fontSize: '25px', fontWeight: 'bold'}}>
+          <div className="name" style={{fontSize: '25px', fontWeight: 'bold', marginBottom: '30px'}}>
             <div className="inlineCenter" style={{
               display: "inline-flex",
               alignItems: "center",
@@ -299,33 +299,48 @@ const Streaks = () => {
               <span style={{fontSize: "35px"}}>{streakDisplayName}</span>
             </div>
           </div>
-          <table className="githubColums">
-            <tbody>
-              <tr className="top">
-              </tr>
-              <tr className="monday">
-                {table?.map((v, i) => { if (i % 7 == 0) return v })}
-              </tr>
-              <tr className="tuesday">
-                {table?.map((v, i) => { if (i % 7 == 1) return v})}
-              </tr>
-              <tr className="wendesday">
-                {table?.map((v, i) => { if (i % 7 == 2) return v})}
-              </tr>
-              <tr className="thursday">
-                {table?.map((v, i) => { if (i % 7 == 3) return v})}
-              </tr>
-              <tr className="friday">
-                {table?.map((v, i) => { if (i % 7 == 4) return v})}
-              </tr>
-              <tr className="saturday">
-                {table?.map((v, i) => { if (i % 7 == 5) return v})}
-              </tr>
-              <tr className="sunday">
-                {table?.map((v, i) => { if (i % 7 == 6) return v})}
-              </tr>
-            </tbody>
-          </table>
+          <div className="borderThin">
+            <table className="githubColums">
+              <tbody>
+                <tr className="top">
+                </tr>
+                <tr className="monday">
+                  <td></td>
+                  {table?.map((v, i) => { if (i % 7 == 0) return v })}
+                </tr>
+                <tr className="tuesday">
+                  <td style={{height: "10px", position: "relative"}}>
+                    <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "3px", bottom: "4.6px"}}>Tue</span>
+                  </td>
+                  {table?.map((v, i) => { if (i % 7 == 1) return v})}
+                </tr>
+                <tr className="wendesday">
+                  <td></td>
+                  {table?.map((v, i) => { if (i % 7 == 2) return v})}
+                </tr>
+                <tr className="thursday">
+                  <td style={{height: "10px", position: "relative"}}>
+                    <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "2px", bottom: "4.6px"}}>Thu</span>
+                  </td>
+                  {table?.map((v, i) => { if (i % 7 == 3) return v})}
+                </tr>
+                <tr className="friday">
+                  <td></td>
+                  {table?.map((v, i) => { if (i % 7 == 4) return v})}
+                </tr>
+                <tr className="saturday">
+                  <td style={{height: "10px", position: "relative"}}>
+                    <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "4px", bottom: "4.6px"}}>Sat</span>
+                  </td>
+                  {table?.map((v, i) => { if (i % 7 == 5) return v})}
+                </tr>
+                <tr className="sunday">
+                  <td></td>
+                  {table?.map((v, i) => { if (i % 7 == 6) return v})}
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div className="deleteButton" onClick={() => {
             deleteStreak(streakDisplayName)
             setStreakDisplayModal(false)
