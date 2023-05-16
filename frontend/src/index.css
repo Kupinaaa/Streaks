@@ -308,6 +308,7 @@ input:focus {
 
 .taskCircle:hover > * {
     color: white;
+    fill: white;
 }
 
 .deleteButton {
@@ -359,8 +360,7 @@ td[data-activity="false"] {
 
 .borderThin {
     border: 1px solid #30363d;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
+    border-radius: 6px;
 
     padding: 15px;
     margin-left: auto;
