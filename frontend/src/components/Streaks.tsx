@@ -290,57 +290,62 @@ const Streaks = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginRight: "10px",
+                marginRight: "6px",
                 borderRadius: "50%"
               }}
                 onClick={() => { updateStreak(streakDisplayName) }}
               >
                <svg className="tick" height="8px" width="8px" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" fill={ (StreakData.find((value: StreakInterface, index: number) => { if(value.streakName == streakDisplayName) return true })?.done ? "#FFFFFF" : "transparent") }><g id="SVGRepo_bgCarrier" ></g><g id="SVGRepo_tracerCarrier" ></g><g id="SVGRepo_iconCarrier"> <g> <path d="M16.145,2.571c-0.272-0.273-0.718-0.273-0.99,0L6.92,10.804l-4.241-4.27 c-0.272-0.274-0.715-0.274-0.989,0L0.204,8.019c-0.272,0.271-0.272,0.717,0,0.99l6.217,6.258c0.272,0.271,0.715,0.271,0.99,0 L17.63,5.047c0.276-0.273,0.276-0.72,0-0.994L16.145,2.571z"></path> </g> </g></svg>
               </div>
-              <span style={{fontSize: "35px"}}>{streakDisplayName}</span>
+              <span style={{fontSize: "25px"}}>{streakDisplayName}</span>
             </div>
           </div>
-          <div className="borderThin">
-            <table className="githubColums">
-              <tbody>
-                <tr className="top">
-                </tr>
-                <tr className="monday">
-                  <td></td>
-                  {table?.map((v, i) => { if (i % 7 == 0) return v })}
-                </tr>
-                <tr className="tuesday">
-                  <td style={{height: "10px", position: "relative"}}>
-                    <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "3px", bottom: "4.6px"}}>Tue</span>
-                  </td>
-                  {table?.map((v, i) => { if (i % 7 == 1) return v})}
-                </tr>
-                <tr className="wendesday">
-                  <td></td>
-                  {table?.map((v, i) => { if (i % 7 == 2) return v})}
-                </tr>
-                <tr className="thursday">
-                  <td style={{height: "10px", position: "relative"}}>
-                    <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "2px", bottom: "4.6px"}}>Thu</span>
-                  </td>
-                  {table?.map((v, i) => { if (i % 7 == 3) return v})}
-                </tr>
-                <tr className="friday">
-                  <td></td>
-                  {table?.map((v, i) => { if (i % 7 == 4) return v})}
-                </tr>
-                <tr className="saturday">
-                  <td style={{height: "10px", position: "relative"}}>
-                    <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "4px", bottom: "4.6px"}}>Sat</span>
-                  </td>
-                  {table?.map((v, i) => { if (i % 7 == 5) return v})}
-                </tr>
-                <tr className="sunday">
-                  <td></td>
-                  {table?.map((v, i) => { if (i % 7 == 6) return v})}
-                </tr>
-              </tbody>
-            </table>
+          <div style={{marginTop: "60px"}}>
+            <div className="borderThinTop">
+              <p style={{fontSize: "20px", marginTop: "0", fontWeight: "bolder", marginBottom: "4px"}}>Streak: { StreakData.find((s) => { return (s.streakName == streakDisplayName) })?.streak }</p>
+            </div>
+            <div className="borderThinBottom">
+              <table className="githubColums">
+                <tbody>
+                  <tr className="top">
+                  </tr>
+                  <tr className="monday">
+                    <td></td>
+                    {table?.map((v, i) => { if (i % 7 == 0) return v })}
+                  </tr>
+                  <tr className="tuesday">
+                    <td style={{height: "10px", position: "relative"}}>
+                      <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "3px", bottom: "4.6px"}}>Tue</span>
+                    </td>
+                    {table?.map((v, i) => { if (i % 7 == 1) return v})}
+                  </tr>
+                  <tr className="wendesday">
+                    <td></td>
+                    {table?.map((v, i) => { if (i % 7 == 2) return v})}
+                  </tr>
+                  <tr className="thursday">
+                    <td style={{height: "10px", position: "relative"}}>
+                      <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "2px", bottom: "4.6px"}}>Thu</span>
+                    </td>
+                    {table?.map((v, i) => { if (i % 7 == 3) return v})}
+                  </tr>
+                  <tr className="friday">
+                    <td></td>
+                    {table?.map((v, i) => { if (i % 7 == 4) return v})}
+                  </tr>
+                  <tr className="saturday">
+                    <td style={{height: "10px", position: "relative"}}>
+                      <span style={{height: "10px", position: "absolute", fontSize: "12px", right: "4px", bottom: "4.6px"}}>Sat</span>
+                    </td>
+                    {table?.map((v, i) => { if (i % 7 == 5) return v})}
+                  </tr>
+                  <tr className="sunday">
+                    <td></td>
+                    {table?.map((v, i) => { if (i % 7 == 6) return v})}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div className="deleteButton" onClick={() => {
             deleteStreak(streakDisplayName)

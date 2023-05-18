@@ -358,11 +358,29 @@ td[data-activity="false"] {
     background-color: #161b22;
 }
 
-.borderThin {
+.borderThinBottom {
     border: 1px solid #30363d;
-    border-radius: 6px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 
     padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 750px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-style: none;
+}
+
+.borderThinTop {
+    border: 1px solid #30363d;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    padding: 10px;
     margin-left: auto;
     margin-right: auto;
 
