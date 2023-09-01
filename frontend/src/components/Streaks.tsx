@@ -90,6 +90,7 @@ const Streaks = () => {
     const Today = new Date()
     Today.setHours(0, 0, 0, 0)
     changeStreak.lastDate = Today.toJSON()
+    changeStreak.dates.push(Today.toJSON())
 
     fetch('http://localhost:3000', {
       method: 'PATCH',

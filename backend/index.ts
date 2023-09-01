@@ -13,12 +13,16 @@ interface IStreak extends mongoose.Document {
    streak: number,
    streakName: string,
    lastDate: string,
+   dates: string[],
+   done: boolean
 }
 
 const streakSchema = new mongoose.Schema<IStreak>({
    streak: Number,
    streakName: String,
    lastDate: String,
+   dates: [String],
+   done: Boolean
 })
 
 const Streak = mongoose.model<IStreak>('Streak', streakSchema)
@@ -35,7 +39,6 @@ app.use(function (req, res, next) {
 app.get("/", async (_req: Request, res: Response) => {
    try {
       const allStreaks = await Streak.find()
-
       res.status(200).json(allStreaks)
    } catch (err:any) {
       res.status(500).json({message: err.message})
@@ -47,17 +50,17 @@ app.post("/", async (req: Request, res: Response) => {
       const streak = await Streak.findOne({streakName: req.body.streakName})
 
       if(req.body.streakName == null) return res.status(400).json({ message: "Bad request: No streakName" })
-
       if(streak != null) return res.status(403).json({ message: "Bad request: The Streak already exists" })
 
       const newStreak = new Streak ({
          streak: 0,
          streakName: req.body.streakName,
-         lastDate: req.body.lastDate
+         lastDate: req.body.lastDate,
+         dates: req.body.dates,
+         done: req.body.done
       })
 
       await newStreak.save()
-
       res.status(201).json(newStreak)
    } catch (err:any) {
       res.status(400).json({message: err.message})
@@ -71,13 +74,22 @@ app.patch("/", async (req: Request, res: Response) => {
       console.log(req.body)
 
       if (streak == null) {
-         return res.status(404).json({ message: "Bad request: Streak not found", code: -1 })
+         return res.status(404).json({ message: "Bad request: Streak not found" })
       }
-
       if(req.body.lastDate == null) {
-         return res.status(400).json({ message: "Bad request: No lastDate property", code: -1 })
+         return res.status(400).json({ message: "Bad request: No lastDate property" })
+      }
+      if(req.body.dates == null) {
+         return res.status(400).json({ message: "Bad request: No dates array" })
       }
 
+      //Date array check(s)
+      for (let i = 0; i < streak.dates.length; i++){
+         if(streak.dates[i] != req.body.dates[i]) return res.status(400).json({ message: "Bad request: the dates array does not match up with the records"})
+      }
+
+      if(req.body.dates[req.body.dates.length - 1] != req.body.lastDate) return res.status(400).json({ message: "Bad request: the last entry in the dates array doesn not match up the lastDate value"})
+      
       //Date check
       //The date sent by the user will be the start of their current day (0h 0m 0s), written in the frontend
       const currDate = Date.parse(req.body.lastDate), prevDate = Date.parse(streak.lastDate)      
@@ -101,10 +113,11 @@ app.patch("/", async (req: Request, res: Response) => {
          // DB manipulations
          streak.lastDate = req.body.lastDate
          streak.streak += 1 
+         streak.dates = req.body.dates
 
          const updStreak = await streak.save()
 
-         return res.status(200).json({ updStreak, message: `Streak updated: The streak is now ${updStreak.streak}`, code: 1 })
+         return res.status(200).json({ updStreak, message: `Streak updated: The streak is now ${updStreak.streak}` })
       }
       
    } catch (err:any) {
