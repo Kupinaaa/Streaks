@@ -5,14 +5,13 @@
 ![Screenshot_20230515_213147](https://github.com/yukinoyuu/Streaks/assets/56956339/0dab43fa-a849-40b2-9663-bcfda5a475cc)
 ![Screenshot_20230515_213321](https://github.com/yukinoyuu/Streaks/assets/56956339/e228f994-0bea-4ebd-8b05-8ed3d24cdfcb)
 
-#### The webApp is being built with MongoDB (mongoose), ExpressJS, ReactJS (vite) and TypeScript; or basically the MERN stack
+#### The webApp was built with MongoDB (mongoose), ExpressJS, ReactJS (vite) and TypeScript; or basically the MERN stack with Typescript
 
-#### What even is a streak?!
-A streak is how many days (in a row) you have been doing something (e.g habbits, workouts, etc)
-or in other words a **streak** of days, hence the name
+#### The Streak app
+The streak app's purpose is to keep track of habits and every day tasks. Or in other words to keep trak of the **streak** of days for which you have been consecutively doing a task, hence the name.
 
 #### Why?
-I'm making this project mostly for personal use and to improve my coding skills.
+I'm making this project for personal use and to improve my coding skills.
 
 #### If for some reason you have decided to try and run this thing, here's how you could do so:
 0. Install nodejs and mongodb
@@ -28,6 +27,4 @@ I currently do not have a build for this, but it might be a later addition.
 - [x] Update the streak count
 - [x] Add Streaks (with no assigned user)
 - [x] Remove Streaks
-- [ ] Update the streak name
 - [x] Github like log of streak
-- [ ] Fix the backend
