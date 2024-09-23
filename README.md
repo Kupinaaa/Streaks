@@ -10,16 +10,13 @@
 The streak app's purpose is to keep track of habits and every day tasks. Or in other words to keep trak of the **streak** of days for which you have been consecutively doing a task, hence the name.
 
 #### Why?
-I'm making this project for personal use and to improve my coding skills.
+I'm making this project for personal use, as well as, improving my coding skills.
 
-#### If for some reason you have decided to try and run this thing, here's how you could do so:
+#### Running instructions:
 0. Install nodejs and mongodb
 1. Start mongodb server (for linux: ```sudo systemctl start mongodb```, for other operating systems, please read mongodb docs on how to start a local server)
 2. Go into both the back and front end folders and in each run ```npm install```
 3. Start both the back and front end servers with ```npm run dev```
-
-Small P.S for the startup tutorial:
-I currently do not have a build for this, but it might be a later addition.
 
 #### The basic functionality of the Streaks webapp:
 - [x] Display all streaks in a neat way
