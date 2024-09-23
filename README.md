@@ -1,7 +1,6 @@
 # Streaks
 ##### Edit date: the 15th of May, 2023
 
-### The current look of things:
 ![Screenshot_20230515_213147](https://github.com/yukinoyuu/Streaks/assets/56956339/0dab43fa-a849-40b2-9663-bcfda5a475cc)
 ![Screenshot_20230515_213321](https://github.com/yukinoyuu/Streaks/assets/56956339/e228f994-0bea-4ebd-8b05-8ed3d24cdfcb)
 
