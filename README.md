@@ -1,4 +1,4 @@
-# Streaks
+# Streaks Full-Stack habbit tracking
 ##### Edit date: the 15th of May, 2023
 
 ![Screenshot_20230515_213147](https://github.com/yukinoyuu/Streaks/assets/56956339/0dab43fa-a849-40b2-9663-bcfda5a475cc)
